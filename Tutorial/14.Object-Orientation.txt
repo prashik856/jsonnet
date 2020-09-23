@@ -1,0 +1,69 @@
+Object-Orientation
+In general, object-orientation makes it easy to define many variants 
+from a single "base". 
+Unlike Java, C++ and Python, where classes extend other classes, in Jsonnet, 
+objects extend other objects. 
+We have already discussed some of the raw ingredients for this, 
+albeit in isolation:
+
+- Objects (which we inherit from JSON)
+- The object composition operator +, which merges two objects, choosing
+ the right hand side when fields collide
+- The self keyword, a reference to the current object
+
+When these features are combined together and with the following 
+new features, things get a lot more interesting:
+
+- Hidden fields, defined with ::, which do not appear in generated JSON
+- The super keyword, which has its usual meaning
+- The +: field syntax for overriding deeply nested fields
+
+The following example is contrived but demonstrates a few of the 
+features using the classical language of object-orientation, 
+"derived" and "base".
+
+
+Let's make it more concrete by mixing deriving some cocktails that 
+are quite similar from a template that draws out their similarities. 
+The + operator is actually implicit in these examples. 
+In the common case where you write foo + { ... }, i.e. the + is 
+immediately followed by a {, then the + can be elided. 
+Try explicitly adding the + in the 4 cases, below.
+
+
+The key to making Jsonnet object-oriented is that the self keyword be 
+"late bound". 
+In other words, self.foo can have its meaning altered by overriding 
+it on the right hand side of a +. 
+This would not be the case in a simple "object merge" semantics of +, 
+where self.foo would be fully evaluated to a concrete value before 
+we did the +. 
+In the above example, the left hand side of the + is templates.Sour (the + 
+is implicit) and the right hand side is an object that overrides spirit. 
+So in the templates.Sour definition (in templates.libsonnet) that causes 
+the reference to drink.spirit in the ingredients list to return "Whiskey" 
+rather than raise the error 'Must override "spirit"'.
+
+Most of the abstraction in the above example could have been achieved 
+with functions instead of object-orientation. 
+Indeed, last time we spoke about sours, we used functions for that 
+very purpose. 
+In general, the choice of whether to use functions or object-orientation 
+is quite a complex one, and can be driven as much by instinct as by 
+anything else. 
+The most obvious difference is that with object-orientation, you can 
+override any file from the resulting object, whereas with functions you 
+can only pass arguments for the specific parameters of the function. 
+So, e.g., if the templates.Sour had been implemented as a function that 
+did not parameterize the ingredients list in general way, then it would 
+not have been possible to add that extra ingredient to form the Nor'Easter.
+
+So far, every example has used a literal object on the right hand side of 
+the +. 
+This is consistent with the majority of object-oriented languages. 
+But Jsonnet is more general in that is has mixins. 
+A Mixin allows you to take some "overrides" and instead of just applying 
+them to an existing object to get a new object, you can pass them around 
+as a first class value and apply them to any object you want. 
+The following example shows mixins being used to modify cocktails in a 
+general way:

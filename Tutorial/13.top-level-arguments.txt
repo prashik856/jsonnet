@@ -17,3 +17,5 @@ Here's the equivalent invocation of the Jsonnet command-line tool:
 
 jsonnet --tla-str prefix="Happy Hour " \
         --tla-code brunch=true ...
+
+jsonnet 13.top-level-tla.jsonnet -o 13.top-level-tla.json --tla-str prefix="Happy Hour" --tla-code brunch=true
