@@ -1,0 +1,105 @@
+Interpreters:
+The easiest way to execute some jsonnet code is invoking an interpreter via
+commandline as so:
+jsonnet -e <code>
+
+Or a filename:
+jsonnet <file>
+
+The command above dumps the JSON on stdout.
+
+
+EXAMPLES:
+Evaluating a file:
+jsonnet landingpage.jsonnet 
+// Here landingpage.jsonnet is an example jsonnet file.
+
+Evaluating a snippet.
+jsonnet -e '{x:1, y:self.x + 1} {x:10}'
+{
+    "x" : 10,
+    "y" : 11
+}
+
+
+MULTIPLE FILE OUTPUT.
+The Jsonnet commandline tool has a special mode for generating multiple JSON 
+files from a single Jsonnet file.
+This can be useful if you want to avoid writing lots of small Jsonnet files, 
+or if you want to take advantage of cross-references and interdependencies 
+between the files. 
+
+The idea is to create a single JSON structure, the top level of which 
+defines the various files:
+// multiple_output.jsonnet
+{
+    "a.json":{
+        x: 1,
+        y: $["b.json"].y
+    },
+    "b.json":{
+        x: $["a.json"].x,
+        y: 2
+    }
+}
+
+When executed using jsonnet -m <dir>, this will write the generated 
+JSON to files a.json and b.json in the given directory, 
+instead of the whole thing being written to stdout
+
+jsonnet -m . multiple_output.jsonnet
+// This creates two json files, a.json and b.json
+
+$ cat a.json 
+{
+   "x": 1,
+   "y": 2
+}
+
+$ cat b.json 
+{
+   "x": 1,
+   "y": 2
+}
+
+
+YAML STREAM OUTPUT:
+Unlike JSON, YAML can represent several objects in the same file, 
+separated by ---. 
+The Jsonnet commandline parameter -y causes the tool to expect the 
+Jsonnet execution to yield an array. 
+
+Config designed for this mode typically looks like this: 
+It then outputs that array as a sequence of JSON documents separated by ---, 
+which any YAML parser will interpret as a YAML stream.
+
+// yaml_stream.jsonnet
+local
+  a = {
+    x: 1,
+    y: b.y,
+  },
+  b = {
+    x: a.x,
+    y: 2,
+  };
+
+[a, b]
+
+
+When executed using -y, this will output that array as a sequence of 
+JSON documents separated by --- and terminated with .... 
+Any YAML parser should interpret this as a YAML stream (people have 
+reported broken parsers, so try it out first).
+$ jsonnet -y . yaml_stream.jsonnet
+---
+{
+   "x": 1,
+   "y": 2
+}
+---
+{
+   "x": 1,
+   "y": 2
+}
+...

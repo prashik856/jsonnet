@@ -1,0 +1,27 @@
+Erros:
+
+Errors can arise from the language itself (e.g. an array overrun) 
+or thrown from Jsonnet code. 
+Stack traces provide context for the error.
+
+- To raise an error: error "foo"
+- To assert a condition before an expression: assert "foo";
+- A custom failure message: assert "foo" : "message";
+- Assert fields have a property: assert self.f == 10,
+- With custom failure message: assert "foo" : "message",
+
+Try modifying the code below to trigger the assertion failures,
+ and observe the error messages and stack traces that result.
+
+You might wonder why the divide-by-zero is not triggered in 
+the equal_parts function, since that code occurs before the std.length() 
+check. 
+
+Jsonnet is a lazy language, so variable initializers are not evaluated 
+until the variable is used. 
+
+Evaluation order is very hard to notice. 
+It only becomes relevant when code throws errors, or takes a long time 
+to execute. 
+
+For more discussion of laziness, see design rationale.

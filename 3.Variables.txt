@@ -1,0 +1,5 @@
+Variables are the simplest way to avoid duplication.
+
+- the local keyword defines a variable
+- Variables defined next to fields end with a comma,
+- All other cases end with with a semicolon.

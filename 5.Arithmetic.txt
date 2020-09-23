@@ -1,0 +1,13 @@
+Arithmetic includes numeric operations like multiplication but 
+also various operations on other types.
+
+- Use floating point arithmetic, bitwise ops, boolean logic.
+- Strings may be concatenated with +, which implicitly converts 
+one operand to string if needed.
+- Two strings can be compared with < (unicode codepoint order).
+- Objects may be combined with + where the right-hand side wins field conflicts.
+- Test if a field is in an object with in.
+- == is deep value equality.
+- Python-compatible string formatting is available via %. 
+When combined with ||| this can be used for templating text files.
+Try dividing by zero to see what happens.

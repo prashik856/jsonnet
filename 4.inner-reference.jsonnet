@@ -1,0 +1,17 @@
+{
+    Martini: {
+        local drink = self,
+        ingredients: [
+            {
+                kind: "Farmer's Gin",
+                qty: 1
+            },
+            {
+                kind: "Dry White Vermouth",
+                qty: drink.ingredients[0].qty,
+            },
+        ],
+        garnished: 'Olive',
+        served: 'Straight Up'
+    },
+}

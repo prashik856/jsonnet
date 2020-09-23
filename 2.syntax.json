@@ -1,0 +1,61 @@
+{
+   "cocktails": {
+      "Dry Manhattan": {
+         "description": "Dry Manhattan Drink.",
+         "garnish": "Lemon slice",
+         "ingredients": [
+            {
+               "kind": "dry red vermouth",
+               "qty": 1
+            }
+         ],
+         "served": "Straight UP"
+      },
+      "Manhattan": {
+         "description": "A clear \\ red drink.",
+         "garnish": "Maraschino Cherry",
+         "ingredients": [
+            {
+               "kind": "Rye",
+               "qty": 2.5
+            },
+            {
+               "kind": "Sweet Red Vermouth",
+               "qty": 1
+            },
+            {
+               "kind": "Angostura",
+               "qty": "dash"
+            }
+         ],
+         "served": "Straight UP"
+      },
+      "Tom Collins": {
+         "description": "The Tom Collins is essentially gin and lemonade.\nThe bitters add complexity.\n",
+         "garnish": "Maraschino Cherry",
+         "ingredients": [
+            {
+               "kind": "Farmer's Gin",
+               "qty": 1.5
+            },
+            {
+               "kind": "Lemon",
+               "qty": 1
+            },
+            {
+               "kind": "Simple Syrup",
+               "qty": 0.5
+            },
+            {
+               "kind": "Soda",
+               "qty": 2
+            },
+            {
+               "kind": "Angostura",
+               "qty": "dash"
+            }
+         ],
+         "served": "Tall"
+      }
+   }
+}

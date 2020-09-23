@@ -1,0 +1,34 @@
+Parameterize Entire Config
+
+Jsonnet is hermetic: It always generates the same data no matter the 
+execution environment. 
+This is an important property but there are times when you want a 
+few carefully chosen parameters at the top level. 
+There are two ways to do this, with different properties.
+
+- External variables, which are accessible anywhere in the config, 
+or any file, using std.extVar("foo").
+- Top-level arguments, where the whole config is expressed as a function.
+
+To illustrate the differences, We'll show how the same example is 
+expressed in each case.
+
+External variables
+The following example binds two external variables, listed below. 
+Any Jsonnet value can be bound to an external variable, even functions.
+
+- prefix is bound to the string "Happy Hour "
+- brunch is bound to true
+
+The values are configured when the Jsonnet virtual machine is initialized, 
+by passing either 
+    1) Jsonnet code (which evaluates to the value), 
+    2) or a raw string. 
+The latter is just a convenience, because escaping a string to pass it 
+as Jsonnet code can be tedious. 
+To make this concrete, the above variables can be configured with the 
+following commandline:
+
+jsonnet --ext-str prefix="Happy Hour " --ext-code brunch=true ...
+
+jsonnet 12.top-level-ext.jsonnet -o 12.top-level-ext.json --ext-str prefix="Happy Hour" --ext-code brunch=true

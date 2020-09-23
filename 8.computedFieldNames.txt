@@ -1,0 +1,14 @@
+Jsonnet objects can be used like a std::map or similar datastructures 
+from regular languages.
+
+Recall that a field lookup can be computed with obj[e]
+The definition equivalent is {[e]: ... }
+self or object locals cannot be accessed when field names are 
+being computed, since the object is not yet constructed.
+
+If a field name evaluates to null during object construction, 
+the field is omitted. 
+This works nicely with the default false branch of a conditional (see below).
+
+Try adding [self.f]: 'f' to see what happens, 
+while pondering what that could even mean!

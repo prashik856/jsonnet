@@ -1,0 +1,9 @@
+FUNCTIONS:
+Like Python, functions have positional parameters, named parameters, 
+and default arguments. 
+Closures are also supported. 
+The examples below should demonstrate the syntax. 
+Many functions are already defined in the standard library.
+
+Try writing a function is_even that uses the modulo operator % 
+and returns either true or false.
